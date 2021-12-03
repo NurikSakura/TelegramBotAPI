@@ -1187,6 +1187,23 @@ class BotApi
     }
 
     /**
+     * Use this method to send answers to custom queries sent from inline keyboards.
+     * The answer will be displayed to the user as a notification at the top of the chat screen or as an alert.
+     *
+     * @param $customQueryId
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function answerCustomQuery($customQueryId, array $data = array())
+    {
+        return $this->call('answerCustomQuery', [
+            'custom_query_id' => $customQueryId,
+            'data' => json_encode($data),
+        ]);
+    }
+
+    /**
      * Use this method to change the list of the bot's commands. Returns True on success.
      *
      * @param $commands

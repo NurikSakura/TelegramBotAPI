@@ -43,6 +43,7 @@ class Update extends BaseType implements TypeInterface
         'pre_checkout_query' => PreCheckoutQuery::class,
         'poll_answer' => PollAnswer::class,
         'poll' => Poll::class,
+        'custom_query' => CustomQuery::class,
     ];
 
     /**
@@ -128,6 +129,13 @@ class Update extends BaseType implements TypeInterface
      * @var PreCheckoutQuery
      */
     protected $preCheckoutQuery;
+
+    /**
+     * Optional. New incoming custom query
+     *
+     * @var \TelegramBot\Api\Types\CustomQuery
+     */
+    protected $customQuery;
 
     /**
      * @return int
@@ -323,5 +331,21 @@ class Update extends BaseType implements TypeInterface
     public function setPreCheckoutQuery($preCheckoutQuery)
     {
         $this->preCheckoutQuery = $preCheckoutQuery;
+    }
+
+    /**
+     * @return CustomQuery
+     */
+    public function getCustomQuery()
+    {
+        return $this->customQuery;
+    }
+
+    /**
+     * @param CustomQuery $customQuery
+     */
+    public function setCustomQuery($customQuery)
+    {
+        $this->customQuery = $customQuery;
     }
 }
