@@ -39,7 +39,7 @@ class Client
 	 */
     public function __construct($token, $trackerToken = null, $customURLPrefix = null, $customFileURLPrefix = null)
     {
-        $this->api = new BotApi($token, $trackerToken, $customURLPrefix = null, $customFileURLPrefix = null);
+        $this->api = new BotApi($token, $trackerToken, $customURLPrefix, $customFileURLPrefix);
         $this->events = new EventCollection($trackerToken);
     }
 
