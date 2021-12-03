@@ -168,13 +168,25 @@ class BotApi
      */
     protected $returnArray = true;
 
+	/**
+	 * @var string
+	 */
+	private $customURLPrefix = NULL;
+
+	/**
+	 * @var string
+	 */
+	private $customFileURLPrefix = NULL;
+
     /**
      * Constructor
      *
      * @param string $token Telegram Bot API token
      * @param string|null $trackerToken Yandex AppMetrica application api_key
+	 * @param string|null $customURLPrefix A custom URL (f.e. a local server)
+	 * @param string|null $customFileURLPrefix A custom File URL (f.e. a local server)
      */
-    public function __construct($token, $trackerToken = null)
+    public function __construct($token, $trackerToken = null, $customURLPrefix = null, $customFileURLPrefix = null)
     {
         $this->curl = curl_init();
         $this->token = $token;
@@ -182,7 +194,33 @@ class BotApi
         if ($trackerToken) {
             $this->tracker = new Botan($trackerToken);
         }
+
+		if(null !== $customURLPrefix) {
+			$this->setCustomURLPrefix($customURLPrefix);
+		}
+
+		if(null !== $customFileURLPrefix) {
+			$this->setCustomFileURLPrefix($customFileURLPrefix);
+		}
     }
+
+	/**
+	 * Set a custom URL prefix
+	 *
+	 * @param string $customURLPrefix
+	 */
+	private function setCustomURLPrefix($customURLPrefix) {
+		$this->customURLPrefix = $customURLPrefix;
+	}
+
+	/**
+	 * Set a custom file URL prefix
+	 *
+	 * @param string $customFileURLPrefix
+	 */
+	private function setCustomFileURLPrefix($customFileURLPrefix) {
+		$this->customFileURLPrefix = $customFileURLPrefix;
+	}
 
     /**
      * Set return array
@@ -1341,7 +1379,7 @@ class BotApi
      */
     public function getUrl()
     {
-        return self::URL_PREFIX.$this->token;
+        return ((NULL !== $this->customURLPrefix) ? $this->customURLPrefix : self::URL_PREFIX).$this->token;
     }
 
     /**
@@ -1349,7 +1387,7 @@ class BotApi
      */
     public function getFileUrl()
     {
-        return self::FILE_URL_PREFIX.$this->token;
+        return ((NULL !== $this->customFileURLPrefix) ? $this->customFileURLPrefix : self::FILE_URL_PREFIX).$this->token;
     }
 
     /**

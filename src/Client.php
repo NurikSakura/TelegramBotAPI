@@ -34,10 +34,12 @@ class Client
      *
      * @param string $token Telegram Bot API token
      * @param string|null $trackerToken Yandex AppMetrica application api_key
-     */
-    public function __construct($token, $trackerToken = null)
+	 * @param string|null $customURLPrefix A custom URL (f.e. a local server)
+	 * @param string|null $customFileURLPrefix A custom File URL (f.e. a local server)
+	 */
+    public function __construct($token, $trackerToken = null, $customURLPrefix = null, $customFileURLPrefix = null)
     {
-        $this->api = new BotApi($token);
+        $this->api = new BotApi($token, $trackerToken, $customURLPrefix = null, $customFileURLPrefix = null);
         $this->events = new EventCollection($trackerToken);
     }
 
