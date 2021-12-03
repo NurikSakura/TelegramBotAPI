@@ -1137,12 +1137,14 @@ class BotApi
      *
      * @return bool
      */
-    public function answerCallbackQuery($callbackQueryId, $text = null, $showAlert = false)
+    public function answerCallbackQuery($callbackQueryId, $text = null, $showAlert = false, $url = null, $cacheTime = 0)
     {
         return $this->call('answerCallbackQuery', [
             'callback_query_id' => $callbackQueryId,
             'text' => $text,
             'show_alert' => (bool)$showAlert,
+            'url' => $url,
+            'cache_time' => $cacheTime,
         ]);
     }
 
